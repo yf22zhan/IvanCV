@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
-        android:name="com.google.android.gms.maps.MapFragment"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        map:cameraTargetLat="43.4643"
+        map:cameraTargetLng="-80.5204"
+        map:cameraTilt="0"
+        map:cameraZoom="8"
+        map:mapType="normal"
+        map:uiCompass="false"
+        map:uiRotateGestures="true"
+        map:uiScrollGestures="false"
+        map:uiTiltGestures="true"
+        map:uiZoomControls="false"
+        map:uiZoomGestures="true"
+        tools:ignore="MissingPrefix" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +44,8 @@
                 android:gravity="center"
                 android:hint="Please Enter 'Ivan' for Search"
                 android:textColor="#616161"
-                android:textColorHint="#673ab7" />
+                android:textColorHint="#673ab7"
+                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/button_search"
@@ -40,7 +55,8 @@
                 android:background="@drawable/button_search_selector"
                 android:gravity="center"
                 android:text="SEARCH"
-                android:textColor="#FFFFFF" />
+                android:textColor="#FFFFFF"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
@@ -54,7 +70,8 @@
             android:background="@drawable/button_start_selector"
             android:gravity="center"
             android:text="GO"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
