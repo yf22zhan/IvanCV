@@ -3,11 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment
-        android:id="@+id/map"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
         android:name="com.google.android.gms.maps.MapFragment"
+        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        map:cameraTargetLat="43.6269"
+        map:cameraTargetLng="-79.9514"
+        map:cameraZoom="8"
+        map:mapType="normal"
+        map:uiCompass="false"
+        map:uiRotateGestures="true"
+        map:uiScrollGestures="true"
+        map:uiTiltGestures="false"
+        map:uiZoomControls="true"
+        map:uiZoomGestures="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -54,6 +65,7 @@
             android:background="@drawable/button_start_selector"
             android:gravity="center"
             android:text="GO"
+            android:textSize="25sp"
             android:textColor="#ffffff" />
 
     </RelativeLayout>
