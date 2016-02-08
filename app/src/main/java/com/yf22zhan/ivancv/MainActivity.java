@@ -95,7 +95,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                final String cvName = editTextName.getText().toString();
+                String editTextInput = editTextName.getText().toString();
+                final String cvName = editTextInput.substring(0, 1).toUpperCase()
+                        + editTextInput.substring(1).toLowerCase();
                 if (cvName.equals("Ivan")) {
 
                     setUpMap();
@@ -109,7 +111,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void onClick(View v) {
                             // TODO Auto-generated method stub
-                            //CvActivity.actionStart(MainActivity.this, cvName);
+                            CvActivity.actionStart(MainActivity.this, cvName);
                         }
                     });
 

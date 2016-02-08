@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:map="http://schemas.android.com/apk/res-auto"
-        android:name="com.google.android.gms.maps.MapFragment"
+    <fragment xmlns:map="http://schemas.android.com/apk/res-auto"
         android:id="@+id/map"
+        android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         map:cameraTargetLat="43.6269"
@@ -40,6 +39,8 @@
                 android:background="@drawable/edittext_layerlist"
                 android:gravity="center"
                 android:hint="Please Enter 'Ivan' for Search"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 android:textColor="#616161"
                 android:textColorHint="#673ab7" />
 
@@ -65,8 +66,8 @@
             android:background="@drawable/button_start_selector"
             android:gravity="center"
             android:text="GO"
-            android:textSize="25sp"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="25sp" />
 
     </RelativeLayout>
 
