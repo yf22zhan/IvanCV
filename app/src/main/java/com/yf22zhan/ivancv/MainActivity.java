@@ -136,7 +136,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         db.insert("footstep", null, values);
                         values.clear();
                         //insert third set data
-                        values.put("name", "China · Ontario · Oakville");
+                        values.put("name", "Canada · Ontario · Oakville");
                         values.put("maintask", "Android and iOS Mobile QA Developer at Pelmorex (The Weather Network)|U of T Hackathons");
                         values.put("performance", "Performed regression testing and developed UI automated testing framework|Enjoyed participating in various events with colleagues after work");
                         values.put("lat", LocationConstants.OAKVILLE.latitude);

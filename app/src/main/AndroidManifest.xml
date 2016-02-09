@@ -31,10 +31,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".CvActivity">
+        <activity android:name=".CvActivity"></activity>
 
-        </activity>
+        <activity android:name=".CvMapActivity"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,15 +18,23 @@ import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by yzhang on 2/8/2016.
  */
+
+// Note: Any (int index) parameter to ViewPager functions starts with 0
+// Whereas the variables 'selectPage' and 'RowID' to SQLite start with 1
+
 public class CvMapActivity extends Activity implements OnMapReadyCallback {
 
     private GoogleMap googleMap;
@@ -34,11 +43,10 @@ public class CvMapActivity extends Activity implements OnMapReadyCallback {
     private ImageButton imageButtonRight;
     private ViewPager viewPager;
     private PageAdapter pageAdapter;
-    private Marker marker;
-    private Circle circleBig;
-    private Circle circleSmall;
+    private Marker marker = null;
+    private Circle circleBig = null;
+    private Circle circleSmall = null;
 
-    private int currentPageId = 0;
     private int selectPage = 0;
     private static String location = "";
 
@@ -53,6 +61,63 @@ public class CvMapActivity extends Activity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
         googleMap = map;
+
+        // selectPage == 1 or in other words index == 0 is checked
+        // because ViewPager.onPageSelected(int index) does not get triggered
+        // the first  time calling setCurrentItem(0)
+        if (selectPage == 1) {
+            setUpMap();
+        } else {
+            viewPager.setCurrentItem((selectPage - 1));
+        }
+    }
+
+    private void setUpMap() {
+
+        if (selectPage == 1) {
+            imageButtonLeft.setVisibility(View.INVISIBLE);
+        } else if (selectPage == 3) {
+            imageButtonRight.setVisibility(View.INVISIBLE);
+        } else {
+            imageButtonLeft.setVisibility(View.VISIBLE);
+            imageButtonRight.setVisibility(View.VISIBLE);
+        }
+
+        double lat = 0f;
+        double lng = 0f;
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursorCurrent = db.query("footstep", null, "id=" + selectPage, null, null, null, null);
+        if (cursorCurrent.moveToFirst()) {
+            lat = cursorCurrent.getDouble(cursorCurrent.getColumnIndex("lat"));
+            lng = cursorCurrent.getDouble(cursorCurrent.getColumnIndex("lng"));
+        }
+        cursorCurrent.close();
+
+        if (marker != null) {
+            marker.remove();
+            circleBig.remove();
+            circleSmall.remove();
+        }
+
+        LatLng currentLocation = new LatLng(lat, lng);
+        marker = googleMap.addMarker(new MarkerOptions().position(currentLocation));
+        circleBig = googleMap.addCircle(new CircleOptions().center(currentLocation)
+                .fillColor(Color.parseColor("#7f448aff"))
+                .radius(1000).strokeWidth(0f));
+        circleSmall = googleMap.addCircle(new CircleOptions().center(currentLocation)
+                .fillColor(Color.parseColor("#448aff"))
+                .radius(150).strokeWidth(2f).strokeColor(Color.parseColor("#ffffff")));
+        googleMap.animateCamera(CameraUpdateFactory
+                .newLatLngZoom(currentLocation, 12f), 1000, null);
+        googleMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                // TODO Auto-generated method stub
+                //CvDetailedContentActivity.actionStart(CvMapActivity.this, selectPage);
+                return false;
+            }
+        });
+
     }
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,149 +131,51 @@ public class CvMapActivity extends Activity implements OnMapReadyCallback {
 
         dbHelper = new MyDatabaseHelper(this, "FootStep.db", null, 1);
 
-        /**
-         * initialize googleMap camera position according to 'selectPage'
-         **/
         selectPage = getIntent().getIntExtra("position", 0);
-        final int currentPosition = selectPage + 1;
-        double lat = 0f;
-        double lng = 0f;
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        Cursor cursorCurrent = db.query("footstep", null, "id=" + currentPosition, null, null, null, null);
-        if (cursorCurrent.moveToFirst()) {
-            lat = cursorCurrent.getDouble(cursorCurrent.getColumnIndex("lat"));
-            lng = cursorCurrent.getDouble(cursorCurrent.getColumnIndex("lng"));
-        }
-        cursorCurrent.close();
-
-        marker = aMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_place_red))
-                .anchor(0.5f, 0.8f));
-        circleBig = aMap.addCircle(new CircleOptions().center(new LatLng(lat, lng))
-                .fillColor(Color.parseColor("#7f448aff"))
-                .radius(10000).strokeWidth(0f));
-        circleSmall = aMap.addCircle(new CircleOptions().center(new LatLng(lat, lng))
-                .fillColor(Color.parseColor("#448aff"))
-                .radius(1500).strokeWidth(2f).strokeColor(Color.parseColor("#ffffff")));
-        aMap.moveCamera(CameraUpdateFactory
-                .newCameraPosition(new CameraPosition(new LatLng(34.3492, 98.0243), 10f, 0f, 0)));
-        aMap.animateCamera(CameraUpdateFactory
-                .newCameraPosition(CameraPosition.fromLatLngZoom(new LatLng(lat, lng), 9.9f)), 1000, null);
-        aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
-
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-                // TODO Auto-generated method stub
-                CvDetailedContentActivity.actionStart(CvMapActivity.this, currentPosition);
-                return false;
-            }
-        });
 
         /**
          * viewPager settings,the most important part is setOnPageChangeListener to
-         * record the page change state in order to update aMap camera latitude and longitude position
-         */
-        pageAdapter = new PageAdapter(getFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+         * record the page change state in order to update googleMap camera LatLng position
+         **/
 
+        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                // TODO Auto-generated method stub
+                selectPage = position + 1;
+                setUpMap();
+            }
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // TODO Auto-generated method stub
+            }
+        });
+
+        pageAdapter = new PageAdapter(getFragmentManager());
+        viewPager.setAdapter(pageAdapter);
         imageButtonLeft = (ImageButton) findViewById(R.id.imagebutton_left);
         imageButtonLeft.setOnClickListener(mOnClickListener);
         imageButtonRight = (ImageButton) findViewById(R.id.imagebutton_right);
         imageButtonRight.setOnClickListener(mOnClickListener);
-
-        if (selectPage == 0) {
-            imageButtonLeft.setVisibility(View.INVISIBLE);
-        } else if (selectPage == 5) {
-            imageButtonRight.setVisibility(View.INVISIBLE);
-        } else {
-            imageButtonLeft.setVisibility(View.VISIBLE);
-            imageButtonRight.setVisibility(View.VISIBLE);
-        }
-
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-
-            @Override
-            public void onPageSelected(int arg0) {
-                // TODO Auto-generated method stub
-                currentPageId = arg0;
-                if (currentPageId == 0) {
-                    imageButtonLeft.setVisibility(View.INVISIBLE);
-                } else if (currentPageId == 5) {
-                    imageButtonRight.setVisibility(View.INVISIBLE);
-                } else {
-                    imageButtonLeft.setVisibility(View.VISIBLE);
-                    imageButtonRight.setVisibility(View.VISIBLE);
-                }
-
-                final int currentPosition = viewPager.getCurrentItem() + 1;
-                double lat = 0f;
-                double lng = 0f;
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                Cursor cursorCurrent = db.query("footstep", null, "id=" + currentPosition, null, null, null, null);
-                if (cursorCurrent.moveToFirst()) {
-                    lat = cursorCurrent.getDouble(cursorCurrent.getColumnIndex("lat"));
-                    lng = cursorCurrent.getDouble(cursorCurrent.getColumnIndex("lng"));
-                }
-                cursorCurrent.close();
-
-                marker.destroy();
-                circleBig.remove();
-                circleSmall.remove();
-                marker = aMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_action_place_red))
-                        .anchor(0.5f, 0.8f));
-                circleBig = aMap.addCircle(new CircleOptions().center(new LatLng(lat, lng))
-                        .fillColor(Color.parseColor("#7f448aff"))
-                        .radius(10000).strokeWidth(0f));
-                circleSmall = aMap.addCircle(new CircleOptions().center(new LatLng(lat, lng))
-                        .fillColor(Color.parseColor("#448aff"))
-                        .radius(1500).strokeWidth(2f).strokeColor(Color.parseColor("#ffffff")));
-                aMap.animateCamera(CameraUpdateFactory
-                        .newLatLngZoom(new LatLng(lat, lng), 9.9f), 1500, null);
-                aMap.setOnMarkerClickListener(new AMap.OnMarkerClickListener() {
-
-                    @Override
-                    public boolean onMarkerClick(Marker marker) {
-                        // TODO Auto-generated method stub
-                        CvDetailedContentActivity.actionStart(CvMapActivity.this, currentPosition);
-                        return false;
-                    }
-                });
-            }
-
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-        viewPager.setAdapter(pageAdapter);
-        viewPager.setCurrentItem(selectPage);
-
     }
 
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             switch (v.getId()) {
-
                 case R.id.imagebutton_left:
-                    if (currentPageId != 0) {
-                        currentPageId--;
-                        viewPager.setCurrentItem(currentPageId, true);
-                    }
+                    viewPager.setCurrentItem((selectPage - 2), true);
                     break;
                 case R.id.imagebutton_right:
-                    if (currentPageId != 5) {
-                        currentPageId++;
-                        viewPager.setCurrentItem(currentPageId, true);
-                    }
+                    viewPager.setCurrentItem(selectPage, true);
                     break;
-
             }
         }
     };
@@ -235,10 +202,11 @@ public class CvMapActivity extends Activity implements OnMapReadyCallback {
     }
 
     private static final class PageAdapter extends FragmentStatePagerAdapter {
-        public PageAdapter(FragmentManager fragmentManager) {
-            super(fragmentManager);
+        public PageAdapter(FragmentManager fm) {
+            super(fm);
         }
 
+        @Override
         public Fragment getItem(int position) {
             final Bundle bundle = new Bundle();
             bundle.putInt(PlaceHolderFragment.EXTRA_POSITION, position + 1);
@@ -250,28 +218,8 @@ public class CvMapActivity extends Activity implements OnMapReadyCallback {
         }
 
         public int getCount() {
-            return 6;
+            return 3;
         }
-    }
-
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
-    }
-
-    protected void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-
-    protected void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy();
-    }
-
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
     }
 
 }
