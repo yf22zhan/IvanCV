@@ -113,7 +113,7 @@ public class CvMapActivity extends Activity implements OnMapReadyCallback {
             @Override
             public boolean onMarkerClick(Marker marker) {
                 // TODO Auto-generated method stub
-                //CvDetailedContentActivity.actionStart(CvMapActivity.this, selectPage);
+                CvDetailedContentActivity.actionStart(CvMapActivity.this, selectPage);
                 return false;
             }
         });

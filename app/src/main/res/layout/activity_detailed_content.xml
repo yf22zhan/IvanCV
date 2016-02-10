@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.yf22zhan.ivancv.StickyScrollView
+        android:id="@+id/myscrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textview_title_maintask"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#673ab7"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:tag="sticky"
+                android:text="Main Task"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.yf22zhan.ivancv.MyListView
+                android:id="@+id/listview_maintask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:focusable="false" />
+
+            <TextView
+                android:id="@+id/textview_titile_performance"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#448aff"
+                android:gravity="center_vertical"
+                android:paddingLeft="20dp"
+                android:tag="sticky"
+                android:text="Performance"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <com.yf22zhan.ivancv.MyListView
+                android:id="@+id/listview_performance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:focusable="false" />
+        </LinearLayout>
+
+    </com.yf22zhan.ivancv.StickyScrollView>
+
+</LinearLayout>

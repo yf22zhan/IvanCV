@@ -5,8 +5,11 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/imagebutton_cv_pressed.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/imagebutton_cv_selector.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/textview_onroad_dot.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detailed_content.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/avtivity_cvmap.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_cvmap.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/maintask_display.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/performance_display.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_next_item_grey.png" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_next_item_white.png" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_previous_item_white.png" charset="windows-1252" />

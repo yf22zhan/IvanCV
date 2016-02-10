@@ -120,23 +120,30 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         //insert first set data
                         values.put("name", "Canada · Ontario · Waterloo");
                         values.put("maintask", "Computer Eng Undergrad Study at UW");
-                        values.put("performance", "Academics：Top 10 in Program|Extracurricular：GitHub Projects and Hackathons|Awards：President's Scholarship of Distinction");
+                        values.put("performance", "Academics: Top 10 in Program" +
+                                "|Extracurricular: GitHub Projects and Hackathons" +
+                                "|Awards: President's Scholarship of Distinction");
                         values.put("lat", LocationConstants.WATERLOO.latitude);
                         values.put("lng", LocationConstants.WATERLOO.longitude);
                         db.insert("footstep", null, values);
                         values.clear();
                         //insert second set data
                         values.put("name", "Canada · Ontario · Vaughan");
-                        values.put("maintask", "System Level Test Specialist at Tyco International Ltd.|Participation in Toast Masters|G2 Driver's Licence");
-                        values.put("performance", "Evaluated as an excellent contributor to the team|Implemented script engine and test cases for sensor-server wireless communication|；Coded automatic SVN-fetching system in Python");
+                        values.put("maintask", "System Level Test Specialist at Tyco International Ltd." +
+                                "|Participation in Toast Masters|G2 Driver's Licence");
+                        values.put("performance", "Evaluated as an excellent contributor to the team" +
+                                "|Implemented script engine and test cases for sensor-server wireless communication" +
+                                "|Coded automatic SVN-fetching system in Python");
                         values.put("lat", LocationConstants.VAUGHAN.latitude);
                         values.put("lng", LocationConstants.VAUGHAN.longitude);
                         db.insert("footstep", null, values);
                         values.clear();
                         //insert third set data
                         values.put("name", "Canada · Ontario · Oakville");
-                        values.put("maintask", "Android and iOS Mobile QA Developer at Pelmorex (The Weather Network)|U of T Hackathons");
-                        values.put("performance", "Performed regression testing and developed UI automated testing framework|Enjoyed participating in various events with colleagues after work");
+                        values.put("maintask", "Android and iOS Mobile QA Developer at Pelmorex (The Weather Network)" +
+                                "|U of T Hackathons");
+                        values.put("performance", "Performed regression testing and developed UI automated testing framework" +
+                                "|Enjoyed participating in various events with colleagues after work");
                         values.put("lat", LocationConstants.OAKVILLE.latitude);
                         values.put("lng", LocationConstants.OAKVILLE.longitude);
                         db.insert("footstep", null, values);
