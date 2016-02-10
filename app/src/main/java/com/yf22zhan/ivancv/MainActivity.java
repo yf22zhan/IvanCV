@@ -83,8 +83,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         dbHelper = new MyDatabaseHelper(this, "FootStep.db", null, 1);
-        //dbHelper.getWritableDatabase();
-
 
         editTextName = (EditText) findViewById(R.id.edittext_name);
         buttonStart = (Button) findViewById(R.id.button_start);
