@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -100,7 +101,8 @@ public class CvMapActivity extends Activity implements OnMapReadyCallback {
         }
 
         LatLng currentLocation = new LatLng(lat, lng);
-        marker = googleMap.addMarker(new MarkerOptions().position(currentLocation));
+        marker = googleMap.addMarker(new MarkerOptions().position(currentLocation)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)));
         circleBig = googleMap.addCircle(new CircleOptions().center(currentLocation)
                 .fillColor(Color.parseColor("#7f448aff"))
                 .radius(1000).strokeWidth(0f));

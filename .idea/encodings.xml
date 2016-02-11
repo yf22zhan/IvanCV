@@ -10,8 +10,16 @@
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_cvmap.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/maintask_display.xml" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/layout/performance_display.xml" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_cancel.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_next_item_grey.png" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_next_item_grey.png" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_next_item_white.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_next_item_white.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_place_blue.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_place_orange.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_place_purple.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_place_red.png" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_previous_item_white.png" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_action_previous_item_white.png" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

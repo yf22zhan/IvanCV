@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="10dp"
         android:text="&#8226;"
         android:textColor="#616161"
         android:textSize="20sp" />
@@ -17,10 +17,13 @@
         android:id="@+id/textview_performance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="15dp"
+        android:layout_marginTop="8dp"
         android:lineSpacingExtra="5dp"
         android:textColor="#616161"
         android:textSize="16sp" />
+
 
 </LinearLayout>

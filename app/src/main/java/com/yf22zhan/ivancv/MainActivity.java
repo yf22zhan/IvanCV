@@ -18,6 +18,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -38,18 +39,21 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.animateCamera(CameraUpdateFactory
                 .newLatLngZoom(new LatLng(43.6269, -79.9514), 8.1f), 2000, null);
 
-        googleMap.addMarker(new MarkerOptions().position(LocationConstants.WATERLOO));
+        googleMap.addMarker(new MarkerOptions().position(LocationConstants.WATERLOO)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)));
 
         googleMap.addPolyline((new PolylineOptions())
                 .add(LocationConstants.WATERLOO, LocationConstants.VAUGHAN)
                 .width(20).color(Color.parseColor("#448aff")));
-        googleMap.addMarker(new MarkerOptions().position(LocationConstants.VAUGHAN));
+        googleMap.addMarker(new MarkerOptions().position(LocationConstants.VAUGHAN)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)));
 
 
         googleMap.addPolyline((new PolylineOptions())
                 .add(LocationConstants.WATERLOO, LocationConstants.OAKVILLE)
                 .width(20).color(Color.parseColor("#448aff")));
-        googleMap.addMarker(new MarkerOptions().position(LocationConstants.OAKVILLE));
+        googleMap.addMarker(new MarkerOptions().position(LocationConstants.OAKVILLE)
+                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_marker)));
 
 
     }
@@ -93,10 +97,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                String editTextInput = editTextName.getText().toString();
-                final String cvName = editTextInput.substring(0, 1).toUpperCase()
-                        + editTextInput.substring(1).toLowerCase();
-                if (cvName.equals("Ivan")) {
+                final String cvName = editTextName.getText().toString().toLowerCase();
+                if (cvName.equals("ivan")) {
 
                     setUpMap();
 
@@ -109,7 +111,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void onClick(View v) {
                             // TODO Auto-generated method stub
-                            CvActivity.actionStart(MainActivity.this, cvName);
+                            CvActivity.actionStart(MainActivity.this,
+                                    cvName.substring(0, 1).toUpperCase() + cvName.substring(1));
                         }
                     });
 
